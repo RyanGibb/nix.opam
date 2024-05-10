@@ -1,0 +1,32 @@
+opam-version: "2.0"
+name: "nix-depexts"
+version: "1.0"
+synopsis: "Uses Nix to provide system dependancies"
+maintainer: "ryan@freumh.org"
+authors: ["Ryan Gibb" "David Allsopp"]
+license: "MIT"
+homepage: "https://github.com/RyanGibb/nix-opam"
+bug-reports: "https://github.com/RyanGibb/nix-opam/issues"
+dev-repo: "git+https://github.com/RyanGibb/nix-opam.git"
+build: [
+  ["sh" "./gen_config.sh" name
+    "gmp" {conf-gmp:installed}
+    "libseccomp" {conf-libseccomp:installed}
+  ]
+]
+depopts: [
+  "conf-gmp" {post}
+  "conf-libseccomp" {post}
+]
+depexts: [
+  ["nix"]
+]
+setenv: [
+  [ NIX_CC += "%{_:NIX_CC}%" ]
+  [ NIX_CC_FLAGS += "%{_:NIX_CC_FLAGS}%" ]
+  [ NIX_CFLAGS_COMPILE += "%{_:NIX_CFLAGS_COMPILE}%" ]
+  [ NIX_CC_WRAPPER_TARGET_HOST_x86_64_unknown_linux_gnu += "%{_:NIX_CC_WRAPPER_TARGET_HOST_x86_64_unknown_linux_gnu}%" ]
+  [ NIX_LDFLAGS += "%{_:NIX_LDFLAGS}%" ]
+  [ PKG_CONFIG_PATH += "%{_:PKG_CONFIG_PATH}%" ]
+  [ PATH += "%{_:PATH}%" ]
+]
