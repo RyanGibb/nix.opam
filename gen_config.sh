@@ -5,8 +5,9 @@ set -e
 # $1 = name of opam package
 # $2, ... = packages
 
-opam_package="$1"
-shift 1
+dir="$1"
+opam_package="$2"
+shift 2
 
 # bash in nix in bash
 cat > default.nix <<EOFO
@@ -42,5 +43,5 @@ EOF
 }
 EOFO
 
-nix-build default.nix -o "$opam_package.config"
+nix-build default.nix -o "$dir/$opam_package.config"
 

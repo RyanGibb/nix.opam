@@ -9,7 +9,14 @@ homepage: "https://github.com/RyanGibb/nix-opam"
 bug-reports: "https://github.com/RyanGibb/nix-opam/issues"
 dev-repo: "git+https://github.com/RyanGibb/nix-opam.git"
 build: [
-  ["sh" "./gen_config.sh" name
+  ["sh" "./gen_config.sh" "." name
+    "gmp" {conf-gmp:installed}
+    "libseccomp" {conf-libseccomp:installed}
+  ]
+]
+# generate nix.conf as a Nix GC root in the install directory
+install: [
+  ["sh" "./gen_config.sh" share name
     "gmp" {conf-gmp:installed}
     "libseccomp" {conf-libseccomp:installed}
   ]
